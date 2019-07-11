@@ -30,7 +30,7 @@ UI.prototype.showAlert = function(message, className) {
     const form = document.querySelector('#book-form');
     container.insertBefore(div, form);
 
-    //timeout
+    //timeout for 3 seconds
     setTimeout(function() {
         document.querySelector('.alert').remove()
     }, 3000);
