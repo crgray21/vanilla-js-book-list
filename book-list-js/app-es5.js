@@ -22,6 +22,20 @@ UI.prototype.addBookToList = function(book) {
     list.appendChild(row);
 }
 
+UI.prototype.showAlert = function(message, className) {
+    const div = document.createElement('div');
+    div.className = `alert ${className}`;
+    div.appendChild(document.createTextNode(message));
+    const container = document.querySelector('.container');
+    const form = document.querySelector('#book-form');
+    container.insertBefore(div, form);
+
+    //timeout
+    setTimeout(function() {
+        document.querySelector('.alert').remove()
+    }, 3000);
+}
+
 UI.prototype.clearFields = function() {
     document.getElementById('title').value = '';
     document.getElementById('author').value = '';
@@ -29,9 +43,15 @@ UI.prototype.clearFields = function() {
 
 }
 
+UI.prototype.deleteBook = function(target) {
+    if (target.className === 'delete-row') {
+        target.parentElement.parentElement.remove();
+    }
+}
 
-// Event listeners
-document.getElementById('book-form').addEventListener('submit', function(e) {
+
+// Event listener to add book to list
+document.getElementById('book-form').addEventListener('submit', function(event) {
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const isbn = document.getElementById('isbn').value;
@@ -39,8 +59,22 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
     const book = new Book(title, author, isbn);
     const ui = new UI();
 
-    ui.addBookToList(book); 
-    ui.clearFields();
+    if (title === '' || author === '' || isbn === '' ){
+        ui.showAlert('Please fill in all fields', 'error');
+    } else {
+        ui.addBookToList(book); 
+        ui.showAlert('Book Added!', 'success');
+        ui.clearFields();
+    }
 
-    e.preventDefault();
+    event.preventDefault();
+});
+
+// Event listener to delete book from list
+document.getElementById('book-list').addEventListener('click', function(event) {
+    const ui = new UI();
+    ui.deleteBook(event.target);
+    ui.showAlert('Book removed from list', 'success');
+
+    event.preventDefault();
 });
