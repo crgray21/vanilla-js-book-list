@@ -6,6 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Book List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" integrity="sha256-ECB9bbROLGm8wOoEbHcHRxlHgzGqYpDtNTgDTyDz0wg=" crossorigin="anonymous" />
+    <style>
+        .success .error {
+            color: white;
+            padding: 5px;
+            margin: 5px 0px 15px 0px;
+        }
+
+        .success {
+            background: green;
+        }
+
+        .error {
+            background: red;
+        }
+
+    </style>
 </head>
 <body>
     <div class="container">
@@ -23,8 +39,23 @@
                 <label for="isbn">ISBN</label>
                 <input type="text" id="isbn" class="u-full-width">
             </div>
+            <div>
+                <input type="submit" value="Submit" class="u-full-width">
+            </div>
         </form>
     </div>
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="book-list"></tbody>
+    </table>
+
     <script src="app-es5.js"></script>
 </body>
 </html>
